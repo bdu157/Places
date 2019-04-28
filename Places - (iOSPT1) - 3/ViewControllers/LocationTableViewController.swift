@@ -10,10 +10,15 @@ import UIKit
 
 class LocationTableViewController: UITableViewController {
     @IBOutlet weak var LocationNameTextField: UITextField!
-
     @IBOutlet weak var LatitudeTextField: UITextField!
-    
     @IBOutlet weak var LongitudeTextField: UITextField!
+    
+    let placeController = PlaceController()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,20 +27,17 @@ class LocationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return placeController.places.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath)
+        let place = placeController.places[indexPath.row]
+        cell.textLabel?.text = place.name
         return cell
     }
  
-
     /*
     // MARK: - Navigation
 
@@ -43,12 +45,17 @@ class LocationTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-    }
+    }d
     */
 
     
-    
     @IBAction func SubmitButtonTapped(_ sender: Any) {
-        
+        guard let name = LocationNameTextField.text,
+            let latitudeString = LatitudeTextField.text,
+            let longitudeString = LongitudeTextField.text,
+            let latitude = Double(latitudeString),
+            let longitude = Double(longitudeString) else {return}
+            placeController.createPlace(name: name, latitude: latitude, longitude: longitude)
+            self.tableView.reloadData()
     }
 }
