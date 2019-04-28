@@ -10,21 +10,22 @@ import UIKit
 
 class MapViewController: UIViewController {
 
+    //make sure you add mapview controller here
+    
+    var places : Place? {
+        didSet {
+            
+           print("this is did set")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+
     }
     
+//do viewMapView() method here
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

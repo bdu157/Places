@@ -37,18 +37,21 @@ class LocationTableViewController: UITableViewController {
         cell.textLabel?.text = place.name
         return cell
     }
- 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }d
-    */
+        if segue.identifier == "ToMapVC" {
+            guard let selectedRowPath = self.tableView.indexPathForSelectedRow,
+                let destination = segue.destination as? MapViewController else {return}
+            
+                let place = placeController.places[selectedRowPath.row]
+                    destination.places = place
+            
+        }
+    }
 
-    
     @IBAction func SubmitButtonTapped(_ sender: Any) {
         guard let name = LocationNameTextField.text,
             let latitudeString = LatitudeTextField.text,
