@@ -47,8 +47,7 @@ class LocationTableViewController: UITableViewController {
                 let destination = segue.destination as? MapViewController else {return}
             
                 let place = placeController.places[selectedRowPath.row]
-                    destination.places = place
-            
+                    destination.place = place
         }
     }
 

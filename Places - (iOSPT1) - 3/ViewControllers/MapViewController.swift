@@ -7,25 +7,35 @@
 //
 
 import UIKit
+import MapKit  //dont forget to import MapKit!!!
+
 
 class MapViewController: UIViewController {
 
-    //make sure you add mapview controller here
+
+    @IBOutlet weak var mapView: MKMapView!
     
-    var places : Place? {
-        didSet {
-            
-           print("this is did set")
-        }
-    }
+    
+    var place : Place?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        updateMapLocation()
     }
     
-//do viewMapView() method here
-
-
+    private func updateMapLocation() {
+        guard let place = self.place,
+            isViewLoaded else {return}
+        
+        let span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+        let coordinate = CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        
+        mapView.setRegion(region, animated: true)
+     }
+    
 }
+
+
+
